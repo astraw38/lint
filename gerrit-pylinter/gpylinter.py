@@ -20,9 +20,12 @@ import subprocess
 import re
 import argparse
 import os
-from git import Repo
 from contextlib import contextmanager
+
+from git import Repo
+
 from pylint_validator import PylintValidator, above_score_threshold, no_new_errors
+
 
 PYLINT_SCORE_THRESHOLD = 9
 
