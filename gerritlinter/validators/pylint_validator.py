@@ -6,6 +6,7 @@ Combines a set of validations for pylint results.
 PYLINT_SCORE_THRESHOLD = 9
 
 
+
 class PylintValidator(object):
     """
     Encompasses pylint score validators.
@@ -27,7 +28,7 @@ class PylintValidator(object):
         self.default_score = 1
         self.default_message = "Passed pylint with an average score of {}!"
 
-    def validate(self, new_pylint_data, old_pylint_data):
+    def run(self, new_pylint_data, old_pylint_data):
         """
         Run the new pylint data through given all current checkers,
         including comparisons to old pylint data.
@@ -93,3 +94,6 @@ def above_score_threshold(new_data, old_data, strict=False, threshold=PYLINT_SCO
             score = -1
 
     return success, score, message
+
+
+DEFAULT_CHECKERS = [no_new_errors, above_score_threshold]
