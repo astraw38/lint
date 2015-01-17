@@ -21,7 +21,7 @@ import re
 import os
 from git import Repo
 from utils.general import cd_ctx
-from base_linter import Linter
+from gerritlinter.linters.base_linter import Linter
 
 
 class Pylinter(Linter):

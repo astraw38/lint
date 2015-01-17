@@ -3,7 +3,7 @@ Test file.
 """
 from utils.general import sort_by_type, post_to_gerrit, dump_to_console
 from utils.git_utils import checkout, get_files_changed
-from lint_factory import LintFactory
+from gerritlinter.linters.lint_factory import LintFactory
 
 
 def main(review_id, repository, branch="development", user='lunatest', gerrit=None):

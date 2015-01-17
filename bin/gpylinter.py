@@ -8,7 +8,7 @@ import argparse
 from git import Repo
 from gerritlinter.utils.general import dump_to_console, post_to_gerrit
 from gerritlinter.utils.git_utils import checkout, get_files_changed
-from gerritlinter.pylinter import pylint
+from gerritlinter.linters.pylinter import pylint
 from gerritlinter.validators.pylint_validator import PylintValidator
 
 def main(review_id, repository, branch="development", user='lunatest', gerrit=None):

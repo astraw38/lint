@@ -18,3 +18,17 @@ class Linter(object):
         :return:
         """
         pass
+
+
+class NullLinter(Linter):
+    """
+    Default linter for unsupported file types.
+    """
+    def run(self, file_list):
+        """
+        Do nothing! Return an empty data set.
+
+        :param file_list:
+        :return:
+        """
+        return {}

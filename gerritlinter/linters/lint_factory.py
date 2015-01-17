@@ -4,7 +4,8 @@ Lint factory.
 Given an extension, will return a
 registered Linter.
 """
-from pylinter import Pylinter
+from gerritlinter.linters.base_linter import NullLinter
+from gerritlinter.linters.pylinter import Pylinter
 
 class LinterException(Exception):
     pass
@@ -23,6 +24,8 @@ class LintFactory(object):
         for plugin in LintFactory.PLUGINS:
             if ext in plugin.EXTS:
                 return plugin
+
+        return NullLinter()
 
     @staticmethod
     def register_linter(linter):
