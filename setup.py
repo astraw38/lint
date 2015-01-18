@@ -9,5 +9,5 @@ setup(
     author='Ashley Straw',
     author_email='strawac1@gmail.com',
     description='',
-    install_requires=["git", "pylint"]
+    install_requires=["gitpython", "pylint"]
 )

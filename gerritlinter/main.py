@@ -4,6 +4,7 @@ Test file.
 from utils.general import sort_by_type, post_to_gerrit, dump_to_console
 from utils.git_utils import checkout, get_files_changed
 from gerritlinter.linters.lint_factory import LintFactory
+from gerritlinter.validators.validation_factory import ValidatorFactory
 
 
 def main(review_id, repository, branch="development", user='lunatest', gerrit=None):
@@ -30,13 +31,22 @@ def main(review_id, repository, branch="development", user='lunatest', gerrit=No
 
     new_data = run_linters(files)
 
-    validator = PylintValidator(checkers=[no_new_errors, above_score_threshold])
+    validations = run_validators(new_data, old_data)
 
-    score, message = validator.validate(new_pylint_data, old_pylint_data)
-    exit_code = 1 if score < 0 else 0
+    # Get the lowest score from all validators.
+    final_score = min(validations.values(), key=lambda x: x[0])
+    comment = ""
+    for name, validation in validations:
+        score, message = validation
+        # Each validator should return it's own specialized comment
+        # Ex: 'Passed <name> Validation!\n', or 'Failed <name> Validation!\n<reasons/data>\n'
+        if message[-1:] != "\n":
+            message += "\n"
+        comment += message
 
-    dump_to_console(new_pylint_data)
-    post_to_gerrit(commit_id, score=score, message=message, user=user, gerrit=gerrit)
+    exit_code = 1 if final_score < 0 else 0
+
+    post_to_gerrit(commit_id, score=final_score, message=comment, user=user, gerrit=gerrit)
     exit(exit_code)
 
 

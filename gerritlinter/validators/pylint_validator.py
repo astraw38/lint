@@ -7,7 +7,6 @@ from base_validator import Validator
 PYLINT_SCORE_THRESHOLD = 9
 
 
-
 class PylintValidator(Validator):
     """
     Encompasses pylint score validators.
