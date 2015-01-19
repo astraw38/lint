@@ -18,6 +18,8 @@ class PylintValidator(Validator):
     Allows for easier management of what should cause a -1 Score and
     the related gerrit comment.
     """
+    EXTS = ['py']
+
     def __init__(self, checkers=None):
         """
         Initialize the class with given checkers.

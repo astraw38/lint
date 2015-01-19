@@ -19,7 +19,6 @@ ver 0.2:
 import subprocess
 import re
 import os
-from git import Repo
 from utils.general import cd_ctx
 from gerritlinter.linters.base_linter import Linter
 
@@ -29,6 +28,7 @@ class Pylinter(Linter):
     Implements Code validation for given file type.
     """
     EXTS = ['py']
+
     def run(self, file_list):
         """
         Runs pylint on the list of files and return a dictionary:

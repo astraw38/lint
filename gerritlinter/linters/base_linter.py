@@ -4,6 +4,7 @@ Base class for linters.
 """
 from abc import abstractmethod
 
+
 class Linter(object):
     EXTS = []
 
@@ -24,6 +25,7 @@ class NullLinter(Linter):
     """
     Default linter for unsupported file types.
     """
+
     def run(self, file_list):
         """
         Do nothing! Return an empty data set.

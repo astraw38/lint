@@ -2,9 +2,11 @@
 General utilities used by Gerrit-pylinter.
 
 """
+from contextlib import contextmanager
 import os
 import subprocess
 from collections import defaultdict
+
 
 @contextmanager
 def cd_ctx(directory):
@@ -59,7 +61,7 @@ def post_to_gerrit(commit, score=0, message='', user='lunatest', gerrit=None):
         message = ("{}\r\n\r\n"
                    "Check output here: {}").format(message, url)
         score = str(score)
-    #Format the message in a way that is readable both by shell command
+    # Format the message in a way that is readable both by shell command
     #as well as Gerrit (need to double quote, once for shell, once for gerrit).
     message = "'\"{}\"'".format(message)
 

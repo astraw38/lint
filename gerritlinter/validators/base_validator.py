@@ -4,6 +4,7 @@ Base class for Validators.
 """
 from abc import abstractmethod
 
+
 class Validator(object):
     EXTS = []
 
@@ -25,6 +26,7 @@ class NullValidator(Validator):
     """
     Default Validator for unsupported file types.
     """
+
     def run(self, new_data, old_data):
         """
         Do nothing! Return an empty data set.

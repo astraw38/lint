@@ -6,10 +6,12 @@ Command-line script to automatically run gerritlinter.
 import os
 import argparse
 from git import Repo
-from gerritlinter.utils.general import dump_to_console, post_to_gerrit
+from gerritlinter.main import run_linters, run_validators
+from gerritlinter.utils.general import dump_to_console, post_to_gerrit, sort_by_type, cd_ctx
 from gerritlinter.utils.git_utils import checkout, get_files_changed
-from gerritlinter.linters.pylinter import pylint
+from gerritlinter.linters.pylinter import Pylinter
 from gerritlinter.validators.pylint_validator import PylintValidator
+
 
 def main(review_id, repository, branch="development", user='lunatest', gerrit=None):
     """
@@ -25,22 +27,33 @@ def main(review_id, repository, branch="development", user='lunatest', gerrit=No
     :param gerrit: Gerrit hostname.
     """
     checkout(repository, branch)
-    file_list = get_files_changed(repository=repository, review_id=review_id)
+    raw_file_list = get_files_changed(repository=repository, review_id=review_id)
     checkout(repository=repository, target=branch)
-    print "Pre-review pylint data:"
-    old_pylint_data = pylint(file_list)
+
+    files = sort_by_type(raw_file_list)
+    old_data = run_linters(files)
 
     commit_id = checkout(repository=repository, target=review_id)
-    print "Post-review pylint data:"
-    new_pylint_data = pylint(file_list)
 
-    validator = PylintValidator(checkers=[no_new_errors, above_score_threshold])
+    new_data = run_linters(files)
+    dump_to_console(new_data)
 
-    score, message = validator.validate(new_pylint_data, old_pylint_data)
-    exit_code = 1 if score < 0 else 0
+    validations = run_validators(new_data, old_data)
 
-    dump_to_console(new_pylint_data)
-    post_to_gerrit(commit_id, score=score, message=message, user=user, gerrit=gerrit)
+    # Get the lowest score from all validators.
+    final_score = min(validations.values(), key=lambda x: x[0])
+    comment = ""
+    for name, validation in validations:
+        score, message = validation
+        # Each validator should return it's own specialized comment
+        # Ex: 'Passed <name> Validation!\n', or 'Failed <name> Validation!\n<reasons/data>\n'
+        if message[-1:] != "\n":
+            message += "\n"
+        comment += message
+
+    exit_code = 1 if final_score < 0 else 0
+
+    post_to_gerrit(commit_id, score=final_score, message=comment, user=user, gerrit=gerrit)
     exit(exit_code)
 
 

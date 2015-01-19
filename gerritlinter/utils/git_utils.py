@@ -2,8 +2,6 @@
 Git-related utilities.
 """
 
-import git
-
 
 def checkout(repository, target):
     """

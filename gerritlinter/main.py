@@ -7,49 +7,6 @@ from gerritlinter.linters.lint_factory import LintFactory
 from gerritlinter.validators.validation_factory import ValidatorFactory
 
 
-def main(review_id, repository, branch="development", user='lunatest', gerrit=None):
-    """
-    Do the bulk of the work
-
-    Exit status will be 1 if pylint fails.
-    Exit status will be 0 if pylint passes.
-
-    :param review_id: Target gerrit review ID. ex: refs/changes/99/299/3
-    :param repository: Git repository.
-    :param branch: Git branch to compare to.
-    :param user: SSH User that can connect to gerrit and post scores.
-    :param gerrit: Gerrit hostname.
-    """
-    checkout(repository, branch)
-    raw_file_list = get_files_changed(repository=repository, review_id=review_id)
-    checkout(repository=repository, target=branch)
-
-    files = sort_by_type(raw_file_list)
-    old_data = run_linters(files)
-
-    commit_id = checkout(repository=repository, target=review_id)
-
-    new_data = run_linters(files)
-
-    validations = run_validators(new_data, old_data)
-
-    # Get the lowest score from all validators.
-    final_score = min(validations.values(), key=lambda x: x[0])
-    comment = ""
-    for name, validation in validations:
-        score, message = validation
-        # Each validator should return it's own specialized comment
-        # Ex: 'Passed <name> Validation!\n', or 'Failed <name> Validation!\n<reasons/data>\n'
-        if message[-1:] != "\n":
-            message += "\n"
-        comment += message
-
-    exit_code = 1 if final_score < 0 else 0
-
-    post_to_gerrit(commit_id, score=final_score, message=comment, user=user, gerrit=gerrit)
-    exit(exit_code)
-
-
 def run_linters(files):
     """
     Run through file list, and try to find a linter

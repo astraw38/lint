@@ -7,8 +7,10 @@ registered Linter.
 from gerritlinter.linters.base_linter import NullLinter
 from gerritlinter.linters.pylinter import Pylinter
 
+
 class LinterException(Exception):
     pass
+
 
 class LintFactory(object):
     PLUGINS = [Pylinter]

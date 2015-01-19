@@ -7,8 +7,10 @@ registered Linter.
 from base_validator import NullValidator
 from pylint_validator import PylintValidator, DEFAULT_CHECKERS
 
+
 class ValidatorException(Exception):
     pass
+
 
 class ValidatorFactory(object):
     PLUGINS = [PylintValidator(DEFAULT_CHECKERS)]
@@ -30,9 +32,9 @@ class ValidatorFactory(object):
     @staticmethod
     def register_validator(validator):
         """
-        Register a Linter class for file verification.
+        Register a Validator class for file verification.
 
-        :param linter:
+        :param validator:
         :return:
         """
         if hasattr(validator, "EXTS") and hasattr(validator, "run"):
