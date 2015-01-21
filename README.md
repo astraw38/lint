@@ -2,7 +2,7 @@
 Python script to automatically lint new reviews to gerrit. Designed to be run from within Jenkins via the Gerrit Trigger plugin
 
 
-Glint is a python package to assist with automatic code reviews. It provides the following:
+Glint is a python package to assist with automatic code reviews. It provides the following tools:
 
 1. Get a list of files changed between the active gerrit branch and the specified gerrit review.
 2. Lint the original files in the active gerrit branch.
