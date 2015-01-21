@@ -1,10 +1,10 @@
 from distutils.core import setup
 
 setup(
-    name='gerritlinter',
+    name='glint',
     version='1.0',
-    packages=['gerritlinter'],
-    url='https://github.com/astraw38/gerritlinter',
+    packages=['glint'],
+    url='https://github.com/astraw38/glint',
     license='GNU GPL 2.0',
     author='Ashley Straw',
     author_email='strawac1@gmail.com',

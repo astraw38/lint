@@ -1,16 +1,16 @@
 #!/usr/bin/python
 """
-Command-line script to automatically run gerritlinter.
+Command-line script to automatically run glint.
 
 """
 import os
 import argparse
 from git import Repo
-from gerritlinter.main import run_linters, run_validators
-from gerritlinter.utils.general import dump_to_console, post_to_gerrit, sort_by_type, cd_ctx
-from gerritlinter.utils.git_utils import checkout, get_files_changed
-from gerritlinter.linters.pylinter import Pylinter
-from gerritlinter.validators.pylint_validator import PylintValidator
+from glint.main import run_linters, run_validators
+from glint.utils.general import dump_to_console, post_to_gerrit, sort_by_type, cd_ctx
+from glint.utils.git_utils import checkout, get_files_changed
+from glint.linters.pylinter import Pylinter
+from glint.validators.pylint_validator import PylintValidator
 
 
 def main(review_id, repository, branch="development", user='lunatest', gerrit=None):
