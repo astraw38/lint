@@ -19,7 +19,7 @@ ver 0.2:
 import subprocess
 import re
 import os
-from utils.general import cd_ctx
+from glint.utils.general import cd_ctx
 from glint.linters.base_linter import Linter
 
 

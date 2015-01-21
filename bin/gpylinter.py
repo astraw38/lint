@@ -9,11 +9,9 @@ from git import Repo
 from glint.main import run_linters, run_validators
 from glint.utils.general import dump_to_console, post_to_gerrit, sort_by_type, cd_ctx
 from glint.utils.git_utils import checkout, get_files_changed
-from glint.linters.pylinter import Pylinter
-from glint.validators.pylint_validator import PylintValidator
 
 
-def main(review_id, repository, branch="development", user='lunatest', gerrit=None):
+def main(review_id, repository, branch="development", user='admin', gerrit=None):
     """
     Do the bulk of the work
 
@@ -68,7 +66,7 @@ if __name__ == "__main__":
                         action="store",
                         default=os.environ.get('GERRIT_BRANCH', 'development'))
     parser.add_argument("-r", "--repo",
-                        help="Specify location of the git repository",
+                        help="Specify location of the git repository. Defaults to current directory.",
                         action="store",
                         default=os.path.curdir)
     parser.add_argument("-u", "--user",

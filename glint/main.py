@@ -1,8 +1,10 @@
 """
-Test file.
+Main file.
+
+Contains run_linters and run_validators
+
+
 """
-from utils.general import sort_by_type, post_to_gerrit, dump_to_console
-from utils.git_utils import checkout, get_files_changed
 from glint.linters.lint_factory import LintFactory
 from glint.validators.validation_factory import ValidatorFactory
 
