@@ -70,7 +70,7 @@ if __name__ == "__main__":
                         action="store",
                         default=os.path.curdir)
     parser.add_argument("-u", "--user",
-                        help="Specify ssh user",
+                        help="Specify ssh user. Defaults to $USER.",
                         action="store",
                         default=os.environ.get('USER'))
     parser.add_argument("--host",
