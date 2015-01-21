@@ -34,14 +34,14 @@ def main(review_id, repository, branch="development", user='admin', gerrit=None)
     commit_id = checkout(repository=repository, target=review_id)
 
     new_data = run_linters(files)
-    dump_to_console(new_data)
+    dump_to_console(new_data['py'])
 
     validations = run_validators(new_data, old_data)
 
     # Get the lowest score from all validators.
     final_score = min(validations.values(), key=lambda x: x[0])
     comment = ""
-    for name, validation in validations:
+    for name, validation in validations.items():
         score, message = validation
         # Each validator should return it's own specialized comment
         # Ex: 'Passed <name> Validation!\n', or 'Failed <name> Validation!\n<reasons/data>\n'
