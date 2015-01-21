@@ -10,5 +10,6 @@ setup(
     author='Ashley Straw',
     author_email='strawac1@gmail.com',
     description='',
+    scripts=['bin/gpylinter.py'],
     install_requires=["gitpython", "pylint"]
 )
