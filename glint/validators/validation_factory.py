@@ -27,7 +27,7 @@ class ValidatorFactory(object):
             if ext in plugin.EXTS:
                 return plugin
 
-        return NullValidator()
+        return None
 
     @staticmethod
     def register_validator(validator):

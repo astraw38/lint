@@ -26,6 +26,7 @@ class PylintValidator(Validator):
         """
         if checkers is None:
             checkers = []
+        self.name = "PylintValidator"
         self.checkers = checkers
         self.default_score = 1
         self.default_message = "Passed pylint with an average score of {}!"

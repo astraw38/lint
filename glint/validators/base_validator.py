@@ -26,6 +26,12 @@ class NullValidator(Validator):
     """
     Default Validator for unsupported file types.
     """
+    def __init__(self):
+        """
+        Null validator.
+        :return:
+        """
+        self.name = "NullValidator"
 
     def run(self, new_data, old_data):
         """
@@ -35,4 +41,4 @@ class NullValidator(Validator):
         :param old_data: 
         :return:
         """
-        return True, 0, ""
+        return 1, "No Validation specified for this filetype."

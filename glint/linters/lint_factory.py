@@ -13,7 +13,7 @@ class LinterException(Exception):
 
 
 class LintFactory(object):
-    PLUGINS = [Pylinter]
+    PLUGINS = [Pylinter()]
 
     @staticmethod
     def get_linter(ext):
@@ -27,7 +27,7 @@ class LintFactory(object):
             if ext in plugin.EXTS:
                 return plugin
 
-        return NullLinter()
+        return None
 
     @staticmethod
     def register_linter(linter):
