@@ -1,14 +1,14 @@
 #!/usr/bin/python
 """
-Command-line script to automatically run glint.
+Command-line script to automatically run lint.
 
 """
 import os
 import argparse
 from git import Repo
-from glint.main import run_linters, run_validators
-from glint.utils.general import dump_to_console, post_to_gerrit, sort_by_type, cd_ctx
-from glint.utils.git_utils import checkout, get_files_changed
+from lint.main import run_linters, run_validators
+from lint.utils.general import dump_to_console, post_to_gerrit, sort_by_type, cd_ctx
+from lint.utils.git_utils import checkout, get_files_changed
 
 
 def main(review_id, repository, branch="development", user='admin', gerrit=None):

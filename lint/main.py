@@ -5,8 +5,8 @@ Contains run_linters and run_validators
 
 
 """
-from glint.linters.lint_factory import LintFactory
-from glint.validators.validation_factory import ValidatorFactory
+from lint.linters.lint_factory import LintFactory
+from lint.validators.validation_factory import ValidatorFactory
 
 
 def run_linters(files):
