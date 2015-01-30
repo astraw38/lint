@@ -4,8 +4,7 @@ Validator factory.
 Given an extension, will return a
 registered Linter.
 """
-from base_validator import NullValidator
-from pylint_validator import PylintValidator, DEFAULT_CHECKERS
+from .pylint_validator import PylintValidator, DEFAULT_CHECKERS
 
 
 class ValidatorException(Exception):

@@ -4,7 +4,6 @@ Lint factory.
 Given an extension, will return a
 registered Linter.
 """
-from lint.linters.base_linter import NullLinter
 from lint.linters.pylinter import Pylinter
 
 

@@ -21,7 +21,7 @@ def run_linters(files):
     :return: {file_extension: lint_data}
     """
     data = {}
-    for file_type, file_list in files.items():
+    for file_type, file_list in list(files.items()):
         linter = LintFactory.get_linter(file_type)
         if linter is not None:
             data[file_type] = linter.run(file_list)
@@ -38,7 +38,7 @@ def run_validators(new_data, old_data):
     """
     #{'validator_name': (success, score, message)}
     validation_data = {}
-    for file_type, lint_data in new_data.items():
+    for file_type, lint_data in list(new_data.items()):
         #TODO: What to do if old data doesn't have this filetype?
         old_lint_data = old_data.get(file_type, {})
         validator = ValidatorFactory.get_validator(file_type)

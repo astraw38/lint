@@ -39,9 +39,9 @@ def main(review_id, repository, branch="development", user='admin', gerrit=None)
     validations = run_validators(new_data, old_data)
 
     # Get the lowest score from all validators.
-    final_score = min(validations.values(), key=lambda x: x[0])
+    final_score = min(list(validations.values()), key=lambda x: x[0])
     comment = ""
-    for name, validation in validations.items():
+    for name, validation in list(validations.items()):
         score, message = validation
         # Each validator should return it's own specialized comment
         # Ex: 'Passed <name> Validation!\n', or 'Failed <name> Validation!\n<reasons/data>\n'
@@ -87,7 +87,7 @@ if __name__ == "__main__":
         review = args.review_id
         review = "refs/changes/{}".format(review.lstrip('/'))
 
-    print "Checking review id: {}".format(review)
+    print("Checking review id: {}".format(review))
     repository = Repo(args.repo)
     with cd_ctx(args.repo):
         main(review_id=review, repository=repository, branch=args.branch, user=args.user, gerrit=args.host)

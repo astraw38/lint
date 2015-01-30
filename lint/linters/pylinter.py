@@ -76,9 +76,9 @@ class Pylinter(Linter):
             data['average'] = (sum([score[1] for score in data['scores']]) / len(data['scores']))
         else:
             data['average'] = 9  # Default average? Comes up when all files are new.
-        print "Total: %s" % data['total']
-        print "Errors: %s" % data['errors']
-        print "Average score: %f" % data['average']
+        print("Total: %s" % data['total'])
+        print("Errors: %s" % data['errors'])
+        print("Average score: %f" % data['average'])
         return data
 
 

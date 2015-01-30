@@ -30,13 +30,13 @@ def dump_to_console(pylint_data):
     :param pylint_data:
     :return:
     """
-    for key, value in pylint_data.items():
+    for key, value in list(pylint_data.items()):
         if key not in ('errors', 'total', 'scores', 'average') and len(value) > 0:
-            print "\n*********** {}".format(key)
+            print("\n*********** {}".format(key))
             for line in value:
-                print line.strip('\n')
+                print(line.strip('\n'))
             f_score = [score[1] for score in pylint_data['scores'] if score[0] == key][0]
-            print "Score: {}".format(f_score)
+            print("Score: {}".format(f_score))
 
 
 def post_to_gerrit(commit, score=0, message='', user='lunatest', gerrit=None):

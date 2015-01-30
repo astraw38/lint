@@ -3,7 +3,7 @@ Validation class.
 
 Combines a set of validations for pylint results.
 """
-from base_validator import Validator
+from .base_validator import Validator
 PYLINT_SCORE_THRESHOLD = 9
 
 

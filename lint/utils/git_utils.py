@@ -34,5 +34,5 @@ def get_files_changed(repository, review_id):
                                               "--name-only",
                                               "-r",
                                               "FETCH_HEAD"]).splitlines()
-    print "Found {} files changed".format(len(files_changed))
+    print("Found {} files changed".format(len(files_changed)))
     return files_changed
