@@ -39,7 +39,7 @@ def main(review_id, repository, branch="development", user='admin', gerrit=None)
     validations = run_validators(new_data, old_data)
 
     # Get the lowest score from all validators.
-    final_score = min(list(validations.values()), key=lambda x: x[0])
+    final_score = min(list(validations.values()), key=lambda x: x[0])[0]
     comment = ""
     for name, validation in list(validations.items()):
         score, message = validation
