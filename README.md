@@ -18,7 +18,7 @@ You can also add a checkers to validators, which are simple functions to compare
 
 ##Installation
 
-pip install https://github.com/astraw38/Lint
+pip install git+https://github.com/astraw38/Lint
 
 
 ##Usage
