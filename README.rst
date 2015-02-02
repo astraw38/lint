@@ -26,7 +26,7 @@ compare lint data that are passed to the validator.
 Installation
 ------------
 
-pip install https://github.com/astraw38/Lint
+pip install git+https://github.com/astraw38/Lint
 
 Usage
 -----
