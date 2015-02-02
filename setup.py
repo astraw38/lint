@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='lint',
-    version='1.1',
+    version='1.2',
     packages=['lint', 'lint/utils', 'lint/validators', 'lint/linters'],
     url='https://github.com/astraw38/lint',
     download_url='https://github.com/astraw38/lint/tarball/1.2',
