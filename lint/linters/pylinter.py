@@ -21,6 +21,7 @@ import re
 import os
 from lint.utils.general import cd_ctx
 from lint.linters.base_linter import Linter
+from sys import version_info
 
 
 class Pylinter(Linter):
@@ -50,8 +51,8 @@ class Pylinter(Linter):
                 #Don't run on non-python files.
                 continue
             with cd_ctx(path):
-                short_data = pylint_raw([fname, "--report=n", "-f", "text", '--confidence=HIGH'])
-                full_data = pylint_raw([fname, "--report=y", "-f", "text", '--confidence=HIGH'])
+                short_data = pylint_raw([fname, "--reports=n", "-f", "text"])
+                full_data = pylint_raw([fname, "--reports=y", "-f", "text"])
 
             score_regex = re.search(r"Your code has been rated at (-?\d+\.\d+)", full_data)
             if score_regex:
@@ -91,11 +92,10 @@ def pylint_raw(options):
     :param options:
     :return:
     """
-    with open(os.devnull, 'w') as devnull:
-        try:
-            command = ['pylint']
-            command.extend(options)
-            data = subprocess.check_output(command, stderr=devnull)
-        except subprocess.CalledProcessError as exception:
-            data = exception.output
-    return data
+    command = ['pylint']
+    command.extend(options)
+
+    proc = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    outs, __ = proc.communicate()
+
+    return outs.decode()
