@@ -92,18 +92,10 @@ def pylint_raw(options):
     :param options:
     :return:
     """
-    if version_info[0] < 3:
-        with open(os.devnull, 'w') as devnull:
-            try:
-                command = ['pylint']
-                command.extend(options)
-                data = subprocess.check_output(command, stderr=devnull)
-            except subprocess.CalledProcessError as exception:
-                data = exception.output
+    command = ['pylint']
+    command.extend(options)
 
-    else:
-        command = ['pylint']
-        command.extend(options)
-        data = subprocess.getoutput(' '.join(command))
+    proc = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    outs, __ = proc.communicate()
 
-    return data
+    return outs.decode()
